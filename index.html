@@ -285,19 +285,6 @@ border-radius:30px;
 
 }
 
-#musicBtn{
-
-position:fixed;
-
-bottom:20px;
-right:20px;
-
-width:60px;
-height:60px;
-border-radius:50%;
-
-}
-
 .heart{
 position:fixed;
 top:-10vh;
@@ -312,6 +299,16 @@ to{
 transform:translateY(110vh);
 opacity:0;
 }
+}
+
+#yesBtn, #noBtn {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+#noBtn{
+  position: relative;
+  transition: all 0.2s ease;
 }
 
 </style>
@@ -364,13 +361,22 @@ Masuk 💌
 
 </div>
 
+<div id="choicePage" class="hidden">
+  <div class="passwordBox">
+    <h1>😳 Mau buka kejutan?</h1>
+    
+    <button id="yesBtn" onclick="openSurprise()">Mau ❤️</button>
+    <button id="noBtn" onclick="dontOpen()">Nggak 😤</button>
 
+    <p id="angryText"></p>
+  </div>
+</div>
 
 <div id="website" class="hidden">
 
 <div id="welcome">
 
-<h1>✨ Ada nih sesuatu buat kamu ✨</h1>
+<h1>✨ Ada sesuatu nih buat kamu ✨</h1>
 
 <p>Klik amplopnya 💌</p>
 
@@ -481,11 +487,6 @@ Aku sayang kamu 🥺💗
 
 </div>
 
-
-<button id="musicBtn">
-
-<i class="fa-solid fa-music"></i>
-
 </button>
 
 </div>
@@ -493,9 +494,6 @@ Aku sayang kamu 🥺💗
 </div>
 
 
-<audio id="music" loop>
-<source src="Colde 'Star' (See You in My 19th Life OST Pt. 2) Lyrics.mp3">
-</audio>
 
 <script>
 
@@ -542,13 +540,13 @@ passwordInput.value;
 
 attempts++;
 
-if(pass=="31 07 25"){
+if(pass=="310725"){
 
 passwordPage.classList.add(
 "hidden"
 );
 
-website.classList.remove(
+ choicePage.classList.remove(
 "hidden"
 );
 
@@ -587,7 +585,9 @@ question.innerHTML=questions[0].q;
 
 /* 🔊 TAMBAHAN MUSIK */
 music.volume = 0.5;
+document.addEventListener("click", () => {
 music.play().catch(()=>{});
+}, { once: true });
 
 };
 
@@ -772,7 +772,7 @@ else{
 
 const funny=[
 
-"😂 Jawabanmu bikin fisika bingung",
+"😂 Jawabanmu bikin albert einstein bingung",
 
 "🐻 Beruangnya ikut mikir",
 
@@ -845,6 +845,34 @@ heart.remove();
 },5000);
 
 },250);
+
+function openSurprise(){
+  choicePage.classList.add("hidden");
+  website.classList.remove("hidden");
+  confetti();
+}
+
+let noScale = 1;
+let yesScale = 1;
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+function moveNoButton(){
+
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 120);
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  noBtn.style.transform = "scale(0.9)";
+}
+
+
 
 </script>
 
